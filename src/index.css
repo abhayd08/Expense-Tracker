@@ -1,3 +1,7 @@
+:root {
+  --background: #3b3b3b;
+}
+
 html,
 body {
   width: 100%;
@@ -6,6 +10,8 @@ body {
 
 body {
   box-sizing: border-box;
+  background-color: var(--background);
+  padding: 12px 20px 12px 20px;
 }
 
 * {

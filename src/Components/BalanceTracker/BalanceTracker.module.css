@@ -1,0 +1,96 @@
+.balanceTracker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3.08rem;
+}
+
+.walletBalance {
+  width: 355.41px;
+  height: 181px;
+  border-radius: 15px;
+  opacity: 0px;
+  background: #9b9b9b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 19px;
+  text-align: center;
+}
+
+.heading {
+  font-family: Ubuntu;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 34.47px;
+  text-align: left;
+  color: #ffffff;
+}
+
+.balance {
+  font-family: Ubuntu;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 34.47px;
+  text-align: left;
+  color: #9dff5b;
+}
+
+.addIncomeBtn {
+  width: 167.65px;
+  height: 38px;
+  opacity: 0px;
+  background: linear-gradient(90deg, #b5dc52 0%, #89e148 100%);
+  font-family: Ubuntu;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18.38px;
+  text-align: left;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.expensesContainer {
+  width: 355.41px;
+  height: 181px;
+  border-radius: 15px;
+  opacity: 0px;
+  background: #9b9b9b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 19px;
+  text-align: center;
+}
+
+.expenses {
+  font-family: Ubuntu;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 34.47px;
+  text-align: left;
+  color: #f4bb4a;
+}
+
+.addExpenseBtn {
+  width: 167.65px;
+  height: 38px;
+  opacity: 0px;
+  background: linear-gradient(90deg, #ff9595 0%, #ff4747 80%, #ff3838 100%);
+  font-family: Ubuntu;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18.38px;
+  text-align: left;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+}
