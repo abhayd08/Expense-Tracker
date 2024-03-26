@@ -1,11 +1,15 @@
 import styles from "./BalanceTracker.module.css";
 import { useState } from "react";
-import React, { PureComponent } from "react";
+import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
+import AddExpense from "../AddExpense/AddExpense";
+import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
 
 const BalanceTracker = () => {
   const [walletBalance, setWalletBalance] = useState(5000);
   const [expenses, setExpenses] = useState(500);
+  const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
+  const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
 
   const data = [
     { name: "Entertainment", value: 300 },
@@ -50,13 +54,33 @@ const BalanceTracker = () => {
             Wallet Balance:{" "}
             <span className={styles.balance}>₹{walletBalance}</span>
           </h3>
-          <button className={styles.addIncomeBtn}>+ Add Income</button>
+          <button
+            onClick={() => setIsAddIncomeModalOpen((isOpen) => !isOpen)}
+            className={styles.addIncomeBtn}
+          >
+            + Add Income
+          </button>
+          {/* <BalanceTrackerContext.Provider
+            value={{ isAddIncomeModalOpen, setIsAddIncomeModalOpen }}
+          >
+            <AddIncome />
+          </BalanceTrackerContext.Provider> */}
         </div>
         <div className={styles.expensesContainer}>
           <h3 className={styles.heading}>
             Expenses: <span className={styles.expenses}>₹{expenses}</span>
           </h3>
-          <button className={styles.addExpenseBtn}>+ Add Expense</button>
+          <button
+            onClick={() => setIsAddExpenseModalOpen((isOpen) => !isOpen)}
+            className={styles.addExpenseBtn}
+          >
+            + Add Expense
+          </button>
+          <BalanceTrackerContext.Provider
+            value={{ isAddExpenseModalOpen, setIsAddExpenseModalOpen }}
+          >
+            <AddExpense />
+          </BalanceTrackerContext.Provider>
         </div>
       </div>
       <div className={styles.balanceChart}>
