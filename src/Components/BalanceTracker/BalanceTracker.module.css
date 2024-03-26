@@ -3,6 +3,14 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  gap: 7rem;
+}
+
+.balanceContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 3.08rem;
 }
 
@@ -93,4 +101,54 @@
   border-radius: 15px;
   border: none;
   cursor: pointer;
+}
+
+.balanceChart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.indicatorsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.indicator1Color,
+.indicator2Color,
+.indicator3Color {
+  width: 26px;
+  height: 8px;
+}
+
+.indicator1Color {
+  background: #a000ff;
+}
+
+.indicator2Color {
+  background: #ff9304;
+}
+
+.indicator3Color {
+  background: #fde006;
+}
+
+.indicatorName {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16.34px;
+  text-align: left;
+  color: #ffffff;
 }

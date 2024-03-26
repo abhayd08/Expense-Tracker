@@ -11,6 +11,7 @@ body {
 body {
   box-sizing: border-box;
   background-color: var(--background);
+  font-family: Ubuntu;
   padding: 12px 20px 12px 20px;
 }
 
