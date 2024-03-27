@@ -1,5 +1,5 @@
 import styles from "./BalanceTracker.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
 import AddExpense from "../AddExpense/AddExpense";
@@ -7,14 +7,24 @@ import AddIncome from "../AddIncome/AddIncome";
 import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
 
 const BalanceTracker = () => {
-  const [walletBalance, setWalletBalance] = useState(5000);
-  const [expenses, setExpenses] = useState(0);
-  const [expensesSummary, setExpensesSummary] = useState([]);
-  const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
-  const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const [entertainmentExpenses, setEntertainmentExpenses] = useState(0);
   const [foodExpenses, setFoodExpenses] = useState(0);
   const [travelExpenses, setTravelExpenses] = useState(0);
+
+  const {
+    expensesSummary,
+    setExpensesSummary,
+    walletBalance,
+    setWalletBalance,
+    expenses,
+    setExpenses,
+    transactionToBeEditted,
+    setTransactionToBeEditted,
+    isAddExpenseModalOpen,
+    setIsAddExpenseModalOpen,
+    isAddIncomeModalOpen,
+    setIsAddIncomeModalOpen,
+  } = useContext(BalanceTrackerContext);
 
   useEffect(() => {
     if (localStorage.getItem("walletBalance")) {
@@ -61,25 +71,6 @@ const BalanceTracker = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("walletBalance", walletBalance);
-    localStorage.setItem("expenses", expenses);
-    localStorage.setItem("expensesSummary", JSON.stringify(expensesSummary));
-    localStorage.setItem(
-      "entertainmentExpenses",
-      JSON.stringify(entertainmentExpenses)
-    );
-    localStorage.setItem("foodExpenses", JSON.stringify(foodExpenses));
-    localStorage.setItem("travelExpenses", JSON.stringify(travelExpenses));
-  }, [
-    walletBalance,
-    expenses,
-    expensesSummary,
-    entertainmentExpenses,
-    foodExpenses,
-    travelExpenses,
-  ]);
-
-  useEffect(() => {
     let entertainment = 0;
     let food = 0;
     let travel = 0;
@@ -98,26 +89,50 @@ const BalanceTracker = () => {
       }
     });
 
-    if (entertainment > 0) {
-      setEntertainmentExpenses(entertainment);
-    }
+    setEntertainmentExpenses(entertainment);
 
-    if (food > 0) {
-      setFoodExpenses(food);
-    }
+    setFoodExpenses(food);
 
-    if (travel > 0) {
-      setTravelExpenses(travel);
-    }
-  }, [expensesSummary]);
+    setTravelExpenses(travel);
+  }, [expenses, walletBalance, expensesSummary]);
 
-  const data = [
-    entertainmentExpenses > 0
-      ? { name: "Entertainment", value: entertainmentExpenses }
-      : null,
-    foodExpenses > 0 ? { name: "Food", value: foodExpenses } : null,
-    travelExpenses > 0 ? { name: "Travel", value: travelExpenses } : null,
-  ].filter((entry) => entry !== null);
+  const [data, setData] = useState(
+    [
+      entertainmentExpenses > 0
+        ? { name: "Entertainment", value: entertainmentExpenses }
+        : null,
+      foodExpenses > 0 ? { name: "Food", value: foodExpenses } : null,
+      travelExpenses > 0 ? { name: "Travel", value: travelExpenses } : null,
+    ].filter((entry) => entry !== null)
+  );
+
+  useEffect(() => {
+    setData(
+      [
+        entertainmentExpenses > 0
+          ? { name: "Entertainment", value: entertainmentExpenses }
+          : null,
+        foodExpenses > 0 ? { name: "Food", value: foodExpenses } : null,
+        travelExpenses > 0 ? { name: "Travel", value: travelExpenses } : null,
+      ].filter((entry) => entry !== null)
+    );
+  }, [entertainmentExpenses, foodExpenses, travelExpenses]);
+
+  useEffect(() => {
+    localStorage.setItem("walletBalance", walletBalance);
+    localStorage.setItem("expenses", expenses);
+    localStorage.setItem("expensesSummary", JSON.stringify(expensesSummary));
+    localStorage.setItem("entertainmentExpenses", entertainmentExpenses);
+    localStorage.setItem("foodExpenses", foodExpenses);
+    localStorage.setItem("travelExpenses", travelExpenses);
+  }, [
+    walletBalance,
+    expenses,
+    expensesSummary,
+    entertainmentExpenses,
+    foodExpenses,
+    travelExpenses,
+  ]);
 
   const COLORS = ["#FF9304", "#A000FF", "#FDE006"];
 
@@ -164,15 +179,7 @@ const BalanceTracker = () => {
           >
             + Add Income
           </button>
-          <BalanceTrackerContext.Provider
-            value={{
-              isAddIncomeModalOpen,
-              setIsAddIncomeModalOpen,
-              setWalletBalance,
-            }}
-          >
-            <AddIncome />
-          </BalanceTrackerContext.Provider>
+          <AddIncome />
         </div>
         <div className={styles.expensesContainer}>
           <h3 className={styles.heading}>
@@ -187,19 +194,7 @@ const BalanceTracker = () => {
           >
             + Add Expense
           </button>
-          <BalanceTrackerContext.Provider
-            value={{
-              isAddExpenseModalOpen,
-              setIsAddExpenseModalOpen,
-              expensesSummary,
-              setExpensesSummary,
-              walletBalance,
-              setWalletBalance,
-              setExpenses,
-            }}
-          >
-            <AddExpense />
-          </BalanceTrackerContext.Provider>
+          <AddExpense />
         </div>
       </div>
       <div className={styles.balanceChart}>

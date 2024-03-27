@@ -14,6 +14,8 @@ const AddExpense = () => {
     setExpenses,
     walletBalance,
     setWalletBalance,
+    transactionToBeEditted,
+    setTransactionToBeEditted,
   } = useContext(BalanceTrackerContext);
 
   const [modalWidth, setModalWidth] = useState("530px");
@@ -36,27 +38,61 @@ const AddExpense = () => {
 
   const handleExpenseAdd = (e) => {
     e.preventDefault();
-    const expensesData = {
-      title: e.target.elements.title.value,
-      price: Number(e.target.elements.price.value),
-      category: e.target.elements.category.value,
-      date: new Date(e.target.elements.date.value),
-    };
+    if (transactionToBeEditted === null) {
+      const expensesData = {
+        id: `${expensesSummary.length}_${e.target.elements.title.value.trim()}`,
+        title: e.target.elements.title.value.trim(),
+        price: Number(e.target.elements.price.value),
+        category: e.target.elements.category.value.trim(),
+        date: e.target.elements.date.value,
+      };
 
-    if (Number(e.target.elements.price.value) <= walletBalance) {
-      setWalletBalance((prevBalance) => prevBalance - expensesData.price);
-      setExpenses((prevExpenses) => prevExpenses + expensesData.price);
-      setExpensesSummary((prevSummary) => {
-        return [...prevSummary, expensesData];
-      });
-      setIsAddExpenseModalOpen(false);
-      e.target.reset();
+      if (Number(e.target.elements.price.value) <= walletBalance) {
+        setWalletBalance((prevBalance) => prevBalance - expensesData.price);
+        setExpenses((prevExpenses) => prevExpenses + expensesData.price);
+        setExpensesSummary((prevSummary) => {
+          return [...prevSummary, expensesData];
+        });
+        setIsAddExpenseModalOpen(false);
+        setTransactionToBeEditted(null);
+        e.target.reset();
+      } else {
+        alert("BSDK");
+      }
     } else {
-      alert("BSDK");
+      const transactionToAdd = {
+        id: transactionToBeEditted,
+        title: e.target.elements.title.value.trim(),
+        price: Number(e.target.elements.price.value),
+        category: e.target.elements.category.value.trim(),
+        date: e.target.elements.date.value,
+      };
+
+      const otherTransactions = expensesSummary.filter((expense) => {
+        return expense.id !== transactionToBeEditted;
+      });
+
+      const previousTransaction = expensesSummary.filter(
+        (expense) => expense.id === transactionToBeEditted
+      );
+
+      setWalletBalance(
+        (prevBalance) =>
+          prevBalance + previousTransaction[0].price - transactionToAdd.price
+      );
+      setExpenses(
+        (prevExpenses) =>
+          prevExpenses - previousTransaction[0].price + transactionToAdd.price
+      );
+
+      setExpensesSummary([...otherTransactions, transactionToAdd]);
+      setTransactionToBeEditted(null);
+      setIsAddExpenseModalOpen(false);
     }
   };
 
   console.log(expensesSummary);
+  console.log(transactionToBeEditted);
 
   return (
     <>
@@ -110,7 +146,10 @@ const AddExpense = () => {
                 Add Expense
               </button>
               <button
-                onClick={() => setIsAddExpenseModalOpen(false)}
+                onClick={() => {
+                  setTransactionToBeEditted(null);
+                  setIsAddExpenseModalOpen(false);
+                }}
                 className={styles.cancelBtn}
                 type="button"
               >

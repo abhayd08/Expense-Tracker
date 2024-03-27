@@ -1,0 +1,23 @@
+.container {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 29.75px;
+  padding-bottom: 12px;
+}
+
+.recentTransactions, .topExpenses {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.heading {
+  font-family: Ubuntu;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 32.17px;
+  text-align: left;
+  color: #ffffff;
+}

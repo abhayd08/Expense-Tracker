@@ -1,0 +1,82 @@
+.container {
+  width: 738.33px;
+  height: 345.03px;
+  border-radius: 15px;
+  opacity: 0px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  padding: 0 27px 10px 27px;
+}
+
+.expenseContainer {
+  display: flex;
+  gap: 10rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px 0 0 0;
+}
+
+.section1 {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.expenseName {
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  text-align: left;
+  color: #000000;
+}
+
+.date {
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  text-align: left;
+  color: #9b9b9b;
+}
+
+.section2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 21px;
+}
+
+.expensePrice {
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.79px;
+  text-align: left;
+  color: #f4bb4a;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+}
+
+.divider {
+  border: 1px solid #9b9b9b;
+  margin-top: 9px;
+}
+
+.btns {
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  background: #ffffff;
+}
