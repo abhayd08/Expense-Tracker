@@ -1,0 +1,85 @@
+.container {
+  padding: 34px 30px 34px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  background: #eeeeee;
+}
+
+.heading {
+  font-family: Ubuntu;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 34.47px;
+  text-align: left;
+  color: #000000;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.inputs {
+  width: 185px !important;
+  height: 51px !important;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 0;
+  outline: 0;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  background: linear-gradient(0deg, #fbfbfb, #fbfbfb);
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  text-align: left;
+  color: #919191;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.submitBtn {
+  width: 145px;
+  height: 51px;
+  border: 0;
+  outline: 0;
+  background: linear-gradient(0deg, #f4bb4a, #f4bb4a);
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 15px;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.79px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  width: 112px;
+  height: 51px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  background: linear-gradient(0deg, #e3e3e3, #e3e3e3);
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  text-align: center;
+  color: #000000;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}

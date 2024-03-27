@@ -1,21 +1,123 @@
 import styles from "./BalanceTracker.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
 import AddExpense from "../AddExpense/AddExpense";
+import AddIncome from "../AddIncome/AddIncome";
 import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
 
 const BalanceTracker = () => {
   const [walletBalance, setWalletBalance] = useState(5000);
-  const [expenses, setExpenses] = useState(500);
+  const [expenses, setExpenses] = useState(0);
+  const [expensesSummary, setExpensesSummary] = useState([]);
   const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
+  const [entertainmentExpenses, setEntertainmentExpenses] = useState(0);
+  const [foodExpenses, setFoodExpenses] = useState(0);
+  const [travelExpenses, setTravelExpenses] = useState(0);
+
+  useEffect(() => {
+    if (localStorage.getItem("walletBalance")) {
+      setWalletBalance(Number(localStorage.getItem("walletBalance")));
+    } else {
+      setWalletBalance(5000);
+      localStorage.setItem("walletBalance", walletBalance);
+    }
+    if (localStorage.getItem("expenses")) {
+      setExpenses(Number(localStorage.getItem("expenses")));
+    } else {
+      setExpenses(0);
+      localStorage.setItem("expenses", expenses);
+    }
+    if (localStorage.getItem("expensesSummary")) {
+      setExpensesSummary(JSON.parse(localStorage.getItem("expensesSummary")));
+    } else {
+      setExpensesSummary([]);
+      localStorage.setItem("expensesSummary", JSON.stringify(expenses));
+    }
+
+    if (localStorage.getItem("entertainmentExpenses")) {
+      setEntertainmentExpenses(
+        Number(localStorage.getItem("entertainmentExpenses"))
+      );
+    } else {
+      setEntertainmentExpenses(0);
+      localStorage.setItem("entertainmentExpenses", entertainmentExpenses);
+    }
+
+    if (localStorage.getItem("foodExpenses")) {
+      setFoodExpenses(Number(localStorage.getItem("foodExpenses")));
+    } else {
+      setFoodExpenses(0);
+      localStorage.setItem("foodExpenses", foodExpenses);
+    }
+
+    if (localStorage.getItem("travelExpenses")) {
+      setTravelExpenses(Number(localStorage.getItem("travelExpenses")));
+    } else {
+      setTravelExpenses(0);
+      localStorage.setItem("travelExpenses", travelExpenses);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("walletBalance", walletBalance);
+    localStorage.setItem("expenses", expenses);
+    localStorage.setItem("expensesSummary", JSON.stringify(expensesSummary));
+    localStorage.setItem(
+      "entertainmentExpenses",
+      JSON.stringify(entertainmentExpenses)
+    );
+    localStorage.setItem("foodExpenses", JSON.stringify(foodExpenses));
+    localStorage.setItem("travelExpenses", JSON.stringify(travelExpenses));
+  }, [
+    walletBalance,
+    expenses,
+    expensesSummary,
+    entertainmentExpenses,
+    foodExpenses,
+    travelExpenses,
+  ]);
+
+  useEffect(() => {
+    let entertainment = 0;
+    let food = 0;
+    let travel = 0;
+
+    expensesSummary.forEach((expense) => {
+      if (expense.category === "Entertainment") {
+        entertainment += expense.price;
+      }
+
+      if (expense.category === "Food") {
+        food += expense.price;
+      }
+
+      if (expense.category === "Travel") {
+        travel += expense.price;
+      }
+    });
+
+    if (entertainment > 0) {
+      setEntertainmentExpenses(entertainment);
+    }
+
+    if (food > 0) {
+      setFoodExpenses(food);
+    }
+
+    if (travel > 0) {
+      setTravelExpenses(travel);
+    }
+  }, [expensesSummary]);
 
   const data = [
-    { name: "Entertainment", value: 300 },
-    { name: "Food", value: 150 },
-    { name: "Travel", value: 50 },
-  ];
+    entertainmentExpenses > 0
+      ? { name: "Entertainment", value: entertainmentExpenses }
+      : null,
+    foodExpenses > 0 ? { name: "Food", value: foodExpenses } : null,
+    travelExpenses > 0 ? { name: "Travel", value: travelExpenses } : null,
+  ].filter((entry) => entry !== null);
 
   const COLORS = ["#FF9304", "#A000FF", "#FDE006"];
 
@@ -52,7 +154,9 @@ const BalanceTracker = () => {
         <div className={styles.walletBalance}>
           <h3 className={styles.heading}>
             Wallet Balance:{" "}
-            <span className={styles.balance}>₹{walletBalance}</span>
+            <span className={styles.balance}>
+              ₹{walletBalance.toLocaleString("en-IN")}
+            </span>
           </h3>
           <button
             onClick={() => setIsAddIncomeModalOpen((isOpen) => !isOpen)}
@@ -60,15 +164,22 @@ const BalanceTracker = () => {
           >
             + Add Income
           </button>
-          {/* <BalanceTrackerContext.Provider
-            value={{ isAddIncomeModalOpen, setIsAddIncomeModalOpen }}
+          <BalanceTrackerContext.Provider
+            value={{
+              isAddIncomeModalOpen,
+              setIsAddIncomeModalOpen,
+              setWalletBalance,
+            }}
           >
             <AddIncome />
-          </BalanceTrackerContext.Provider> */}
+          </BalanceTrackerContext.Provider>
         </div>
         <div className={styles.expensesContainer}>
           <h3 className={styles.heading}>
-            Expenses: <span className={styles.expenses}>₹{expenses}</span>
+            Expenses:{" "}
+            <span className={styles.expenses}>
+              ₹{expenses.toLocaleString("en-IN")}
+            </span>
           </h3>
           <button
             onClick={() => setIsAddExpenseModalOpen((isOpen) => !isOpen)}
@@ -77,7 +188,15 @@ const BalanceTracker = () => {
             + Add Expense
           </button>
           <BalanceTrackerContext.Provider
-            value={{ isAddExpenseModalOpen, setIsAddExpenseModalOpen }}
+            value={{
+              isAddExpenseModalOpen,
+              setIsAddExpenseModalOpen,
+              expensesSummary,
+              setExpensesSummary,
+              walletBalance,
+              setWalletBalance,
+              setExpenses,
+            }}
           >
             <AddExpense />
           </BalanceTrackerContext.Provider>
