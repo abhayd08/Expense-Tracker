@@ -3,6 +3,7 @@ import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
 import { useContext } from "react";
 import styles from "./AddIncome.module.css";
 import { useState, useEffect } from "react";
+import { enqueueSnackbar } from "notistack";
 
 const AddIncome = () => {
   const { isAddIncomeModalOpen, setIsAddIncomeModalOpen, setWalletBalance } =
@@ -31,17 +32,23 @@ const AddIncome = () => {
     if (Number(e.target.elements.income.value) > 0) {
       const income = Number(e.target.elements.income.value);
       setWalletBalance((prevBalance) => prevBalance + income);
+      enqueueSnackbar("Income added.", {
+        variant: "success",
+      });
       setIsAddIncomeModalOpen(false);
       e.target.reset();
     } else {
-      alert("No");
-      e.target.reset()
+      enqueueSnackbar("Income cannot be negative.", {
+        variant: "error",
+      });
+      e.target.reset();
     }
   };
 
   return (
     <>
       <ReactModal
+        closeTimeoutMS={500}
         style={{
           content: {
             position: "absolute",

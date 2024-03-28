@@ -9,6 +9,12 @@
   position: relative;
 }
 
+.altText {
+  font-size: 1rem;
+  margin-top: 1.35rem;
+  margin-left: -.5rem;
+}
+
 .expenseContainer {
   display: flex;
   gap: 10rem;

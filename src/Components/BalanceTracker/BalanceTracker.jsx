@@ -216,7 +216,15 @@ const BalanceTracker = () => {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+                fill={
+                  COLORS[
+                    entry.name === "Entertainment"
+                      ? 0
+                      : entry.name === "Food"
+                      ? 1
+                      : 2
+                  ]
+                }
               />
             ))}
           </Pie>

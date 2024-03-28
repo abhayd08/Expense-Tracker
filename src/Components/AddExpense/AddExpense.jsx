@@ -4,6 +4,7 @@ import { useContext } from "react";
 import styles from "./AddExpense.module.css";
 import { useState } from "react";
 import { useEffect } from "react";
+import { enqueueSnackbar } from "notistack";
 
 const AddExpense = () => {
   const {
@@ -60,9 +61,14 @@ const AddExpense = () => {
           });
           setIsAddExpenseModalOpen(false);
           setTransactionToBeEditted(null);
+          enqueueSnackbar("Expense added.", {
+            variant: "success",
+          });
           e.target.reset();
         } else {
-          alert("BSDK");
+          enqueueSnackbar("Expenses must not exceed income.", {
+            variant: "warning",
+          });
         }
       } else {
         const otherTransactions = expensesSummary.filter((expense) => {
@@ -79,7 +85,8 @@ const AddExpense = () => {
           price: Number(e.target.elements.price.value),
           category: e.target.elements.category.value.trim(),
           time:
-            new Date(previousTransaction[0].date) === new Date(e.target.elements.date.value)
+            new Date(previousTransaction[0].date) ===
+            new Date(e.target.elements.date.value)
               ? previousTransaction[0].time
               : new Date().toISOString(),
           date: e.target.elements.date.value,
@@ -95,11 +102,16 @@ const AddExpense = () => {
         );
 
         setExpensesSummary([...otherTransactions, transactionToAdd]);
+        enqueueSnackbar("Transaction edited.", {
+          variant: "success",
+        });
         setTransactionToBeEditted(null);
         setIsAddExpenseModalOpen(false);
       }
     } else {
-      alert("No");
+      enqueueSnackbar("Expenses cannot be negative.", {
+        variant: "error",
+      });
       e.target.elements.price.value = null;
     }
   };
