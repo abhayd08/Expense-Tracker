@@ -7,10 +7,6 @@ import AddIncome from "../AddIncome/AddIncome";
 import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
 
 const BalanceTracker = () => {
-  const [entertainmentExpenses, setEntertainmentExpenses] = useState(0);
-  const [foodExpenses, setFoodExpenses] = useState(0);
-  const [travelExpenses, setTravelExpenses] = useState(0);
-
   const {
     expensesSummary,
     setExpensesSummary,
@@ -24,6 +20,12 @@ const BalanceTracker = () => {
     setIsAddExpenseModalOpen,
     isAddIncomeModalOpen,
     setIsAddIncomeModalOpen,
+    entertainmentExpenses,
+    setEntertainmentExpenses,
+    foodExpenses,
+    setFoodExpenses,
+    travelExpenses,
+    setTravelExpenses,
   } = useContext(BalanceTrackerContext);
 
   useEffect(() => {

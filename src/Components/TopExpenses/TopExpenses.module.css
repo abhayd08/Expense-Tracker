@@ -1,8 +1,9 @@
 .container {
   width: 417px;
-  height: 345px;
+  height: 350px;
   border-radius: 15px;
   opacity: 0px;
   background: #ffffff;
   box-shadow: 0px 4px 4px 0px #00000040;
+  padding: 0 27px 10px 27px;
 }

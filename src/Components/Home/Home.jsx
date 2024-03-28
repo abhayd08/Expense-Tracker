@@ -11,6 +11,9 @@ const Home = () => {
   const [transactionToBeEditted, setTransactionToBeEditted] = useState(null);
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
+  const [entertainmentExpenses, setEntertainmentExpenses] = useState(0);
+  const [foodExpenses, setFoodExpenses] = useState(0);
+  const [travelExpenses, setTravelExpenses] = useState(0);
 
   return (
     <>
@@ -29,6 +32,12 @@ const Home = () => {
           setIsAddExpenseModalOpen,
           isAddIncomeModalOpen,
           setIsAddIncomeModalOpen,
+          entertainmentExpenses,
+          setEntertainmentExpenses,
+          foodExpenses,
+          setFoodExpenses,
+          travelExpenses,
+          setTravelExpenses,
         }}
       >
         <Dashboard />

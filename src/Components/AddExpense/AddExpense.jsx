@@ -35,64 +35,74 @@ const AddExpense = () => {
       }
     });
   });
+  console.log(expensesSummary);
 
   const handleExpenseAdd = (e) => {
     e.preventDefault();
-    if (transactionToBeEditted === null) {
-      const expensesData = {
-        id: `${expensesSummary.length}_${e.target.elements.title.value.trim()}`,
-        title: e.target.elements.title.value.trim(),
-        price: Number(e.target.elements.price.value),
-        category: e.target.elements.category.value.trim(),
-        date: e.target.elements.date.value,
-      };
+    if (Number(e.target.elements.price.value) > 0) {
+      if (transactionToBeEditted === null) {
+        const expensesData = {
+          id: `${
+            expensesSummary.length
+          }_${e.target.elements.title.value.trim()}`,
+          title: e.target.elements.title.value.trim(),
+          price: Number(e.target.elements.price.value),
+          category: e.target.elements.category.value.trim(),
+          time: new Date().toISOString(),
+          date: e.target.elements.date.value,
+        };
 
-      if (Number(e.target.elements.price.value) <= walletBalance) {
-        setWalletBalance((prevBalance) => prevBalance - expensesData.price);
-        setExpenses((prevExpenses) => prevExpenses + expensesData.price);
-        setExpensesSummary((prevSummary) => {
-          return [...prevSummary, expensesData];
-        });
-        setIsAddExpenseModalOpen(false);
-        setTransactionToBeEditted(null);
-        e.target.reset();
+        if (Number(e.target.elements.price.value) <= walletBalance) {
+          setWalletBalance((prevBalance) => prevBalance - expensesData.price);
+          setExpenses((prevExpenses) => prevExpenses + expensesData.price);
+          setExpensesSummary((prevSummary) => {
+            return [...prevSummary, expensesData];
+          });
+          setIsAddExpenseModalOpen(false);
+          setTransactionToBeEditted(null);
+          e.target.reset();
+        } else {
+          alert("BSDK");
+        }
       } else {
-        alert("BSDK");
+        const otherTransactions = expensesSummary.filter((expense) => {
+          return expense.id !== transactionToBeEditted;
+        });
+
+        const previousTransaction = expensesSummary.filter(
+          (expense) => expense.id === transactionToBeEditted
+        );
+
+        const transactionToAdd = {
+          id: transactionToBeEditted,
+          title: e.target.elements.title.value.trim(),
+          price: Number(e.target.elements.price.value),
+          category: e.target.elements.category.value.trim(),
+          time:
+            new Date(previousTransaction[0].date) === new Date(e.target.elements.date.value)
+              ? previousTransaction[0].time
+              : new Date().toISOString(),
+          date: e.target.elements.date.value,
+        };
+
+        setWalletBalance(
+          (prevBalance) =>
+            prevBalance + previousTransaction[0].price - transactionToAdd.price
+        );
+        setExpenses(
+          (prevExpenses) =>
+            prevExpenses - previousTransaction[0].price + transactionToAdd.price
+        );
+
+        setExpensesSummary([...otherTransactions, transactionToAdd]);
+        setTransactionToBeEditted(null);
+        setIsAddExpenseModalOpen(false);
       }
     } else {
-      const transactionToAdd = {
-        id: transactionToBeEditted,
-        title: e.target.elements.title.value.trim(),
-        price: Number(e.target.elements.price.value),
-        category: e.target.elements.category.value.trim(),
-        date: e.target.elements.date.value,
-      };
-
-      const otherTransactions = expensesSummary.filter((expense) => {
-        return expense.id !== transactionToBeEditted;
-      });
-
-      const previousTransaction = expensesSummary.filter(
-        (expense) => expense.id === transactionToBeEditted
-      );
-
-      setWalletBalance(
-        (prevBalance) =>
-          prevBalance + previousTransaction[0].price - transactionToAdd.price
-      );
-      setExpenses(
-        (prevExpenses) =>
-          prevExpenses - previousTransaction[0].price + transactionToAdd.price
-      );
-
-      setExpensesSummary([...otherTransactions, transactionToAdd]);
-      setTransactionToBeEditted(null);
-      setIsAddExpenseModalOpen(false);
+      alert("No");
+      e.target.elements.price.value = null;
     }
   };
-
-  console.log(expensesSummary);
-  console.log(transactionToBeEditted);
 
   return (
     <>

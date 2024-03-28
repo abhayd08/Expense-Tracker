@@ -28,10 +28,15 @@ const AddIncome = () => {
 
   const handleIncomeAdd = (e) => {
     e.preventDefault();
-    const income = Number(e.target.elements.income.value);
-    setWalletBalance((prevBalance) => prevBalance + income);
-    setIsAddIncomeModalOpen(false);
-    e.target.reset();
+    if (Number(e.target.elements.income.value) > 0) {
+      const income = Number(e.target.elements.income.value);
+      setWalletBalance((prevBalance) => prevBalance + income);
+      setIsAddIncomeModalOpen(false);
+      e.target.reset();
+    } else {
+      alert("No");
+      e.target.reset()
+    }
   };
 
   return (

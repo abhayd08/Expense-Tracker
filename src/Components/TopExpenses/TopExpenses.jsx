@@ -1,11 +1,18 @@
 import styles from "./TopExpenses.module.css";
+import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
+import { useContext } from "react";
 
 const TopExpenses = () => {
-  return (
-  <div className={styles.container}>
+  const {
+    entertainmentExpenses,
+    setEntertainmentExpenses,
+    foodExpenses,
+    setFoodExpenses,
+    travelExpenses,
+    setTravelExpenses,
+  } = useContext(BalanceTrackerContext);
 
-  </div>
-  );
+  return <div className={styles.container}></div>;
 };
 
 export default TopExpenses;

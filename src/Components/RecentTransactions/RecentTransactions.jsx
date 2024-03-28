@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
 import styles from "./RecentTransactions.module.css";
 import { GrEdit } from "react-icons/gr";
@@ -6,6 +6,8 @@ import { MdDelete } from "react-icons/md";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { FaGift } from "react-icons/fa6";
 import { FaSuitcaseRolling } from "react-icons/fa";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 const RecentTransactions = () => {
   const {
@@ -15,12 +17,46 @@ const RecentTransactions = () => {
     setExpenses,
     transactionToBeEditted,
     setTransactionToBeEditted,
-    setIsAddExpenseModalOpen
+    setIsAddExpenseModalOpen,
   } = useContext(BalanceTrackerContext);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [startingIndex, setStartingIndex] = useState(0);
+  const [endingIndex, setEndingIndex] = useState(3);
+  const [currentItems, setCurrentItems] = useState(
+    expensesSummary
+      .sort((a, b) => new Date(b.time) - new Date(a.time))
+      .slice(0, 3)
+  );
+  const [maxPagesAllowed, setMaxPagesAllowed] = useState(
+    Math.floor((expensesSummary.length - 1) / 3)
+  );
+
+  useEffect(() => {
+    setCurrentItems(expensesSummary.slice(0, 3));
+    setStartingIndex(0);
+    setEndingIndex(3);
+    setCurrentPage(1);
+    setMaxPagesAllowed(Math.floor((expensesSummary.length - 1) / 3));
+  }, [expensesSummary]);
+
+  useEffect(() => {
+    setCurrentItems(
+      expensesSummary
+        .sort((a, b) => {
+          if (new Date(a.date) === new Date(b.date)) {
+            return new Date(b.time) - new Date(a.time);
+          } else {
+            return new Date(b.date) - new Date(a.date);
+          }
+        })
+        .slice(startingIndex, endingIndex)
+    );
+  }, [currentPage, startingIndex, endingIndex, expensesSummary]);
 
   return (
     <div className={styles.container}>
-      {expensesSummary.map((expense) => {
+      {currentItems.map((expense) => {
         return (
           <div key={expense.id}>
             <div className={styles.expenseContainer}>
@@ -124,6 +160,37 @@ const RecentTransactions = () => {
           </div>
         );
       })}
+      <div className={styles.paginationControls}>
+        <FaArrowAltCircleLeft
+          onClick={() => {
+            if (currentPage > 1) {
+              setCurrentPage((prevPage) => prevPage - 1);
+              setStartingIndex((prevIndex) => prevIndex - 3);
+              setEndingIndex((prevIndex) => prevIndex - 3);
+            }
+          }}
+          style={{
+            width: "37px",
+            height: "37px",
+            cursor: "pointer",
+          }}
+        />
+        <div className={styles.pageNumber}>{currentPage}</div>
+        <FaArrowAltCircleRight
+          onClick={() => {
+            if (currentPage <= maxPagesAllowed) {
+              setCurrentPage((prevPage) => prevPage + 1);
+              setStartingIndex((prevIndex) => prevIndex + 3);
+              setEndingIndex((prevIndex) => prevIndex + 3);
+            }
+          }}
+          style={{
+            width: "37px",
+            height: "37px",
+            cursor: "pointer",
+          }}
+        />
+      </div>
     </div>
   );
 };
