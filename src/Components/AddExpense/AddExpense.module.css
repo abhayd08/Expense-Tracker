@@ -27,8 +27,8 @@
 .inputs {
   width: 191px !important;
   height: 51px !important;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   padding-top: 0;
   padding-bottom: 0;
   border: 0;

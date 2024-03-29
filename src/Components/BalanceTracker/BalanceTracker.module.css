@@ -177,4 +177,18 @@
   .indicatorName {
     font-size: 10px;
   }
+
+  .heading,
+  .expenses,
+  .balance {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 320px) {
+  .heading,
+  .expenses,
+  .balance {
+    font-size: 24px;
+  }
 }

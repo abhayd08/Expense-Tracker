@@ -112,7 +112,7 @@ const RecentTransactions = () => {
                   </div>
                 </div>
                 <div className={styles.section2}>
-                  <span className={styles.expensePrice}>₹{expense.price}</span>
+                  <span className={styles.expensePrice}>₹{expense.price.toLocaleString("en-IN")}</span>
                   <div className={styles.controls}>
                     <button
                       className={styles.btns}

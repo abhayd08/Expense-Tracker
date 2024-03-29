@@ -72,6 +72,7 @@
   line-height: 21.79px;
   text-align: left;
   color: #f4bb4a;
+  word-break: break-all;
 }
 
 .controls {
@@ -155,6 +156,36 @@
   .container {
     width: 78.5vw;
     height: 43.75rem;
+  }
+}
+
+@media (max-width: 355px) {
+  .container {
+    width: 78vw;
+  }
+}
+
+@media (max-width: 345px) {
+  .container {
+    width: 77vw;
+  }
+}
+
+@media (max-width: 330px) {
+  .container {
+    width: 76.5vw;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    width: 76vw;
+  }
+}
+
+@media (max-width: 310px) {
+  .container {
+    width: 74.5vw;
   }
 }
 

@@ -9,16 +9,31 @@ const AddIncome = () => {
   const { isAddIncomeModalOpen, setIsAddIncomeModalOpen, setWalletBalance } =
     useContext(ExpenseTrackerContext);
 
-  const [modalWidth, setModalWidth] = useState("565px");
-  const [modalHeight, setModalHeight] = useState("190px");
+  const [modalWidth, setModalWidth] = useState(null);
+  const [modalHeight, setModalHeight] = useState(null);
+
+  useEffect(() => {
+    if (window.innerWidth <= 310) {
+      setModalWidth("92vw");
+      setModalHeight("318px");
+    } else if (window.innerWidth <= 400) {
+      setModalWidth("290px");
+      setModalHeight("318px");
+    } else if (window.innerWidth <= 640) {
+      setModalWidth("340px");
+      setModalHeight("260px");
+    } else {
+      setModalWidth("565px");
+      setModalHeight("190px");
+    }
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
       if (window.innerWidth <= 310) {
         setModalWidth("92vw");
         setModalHeight("318px");
-      }
-      else if (window.innerWidth <= 400) {
+      } else if (window.innerWidth <= 400) {
         setModalWidth("290px");
         setModalHeight("318px");
       } else if (window.innerWidth <= 640) {
@@ -52,8 +67,7 @@ const AddIncome = () => {
   return (
     <>
       <ReactModal
-      ariaHideApp={false}
-        closeTimeoutMS={300}
+        ariaHideApp={false}
         style={{
           content: {
             position: "absolute",
@@ -69,7 +83,7 @@ const AddIncome = () => {
             outline: "none",
             padding: "0",
             maxHeight: "90vh",
-            overflow: "auto"
+            overflow: "auto",
           },
         }}
         isOpen={isAddIncomeModalOpen}

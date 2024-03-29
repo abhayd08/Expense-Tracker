@@ -21,8 +21,23 @@ const AddExpense = () => {
     setExpenseHeadingToBeDisplayed,
   } = useContext(ExpenseTrackerContext);
 
-  const [modalWidth, setModalWidth] = useState("530px");
-  const [modalHeight, setModalHeight] = useState("341px");
+  const [modalWidth, setModalWidth] = useState(null);
+  const [modalHeight, setModalHeight] = useState(null);
+
+  useEffect(() => {
+    if (window.innerWidth <= 310) {
+      setModalWidth("92vw");
+    } else if (window.innerWidth <= 500) {
+      setModalWidth("290px");
+      setModalHeight("561px");
+    } else if (window.innerWidth <= 610) {
+      setModalWidth("428px");
+      setModalHeight("491px");
+    } else {
+      setModalWidth("530px");
+      setModalHeight("341px");
+    }
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -140,7 +155,6 @@ const AddExpense = () => {
     <>
       <ReactModal
         ariaHideApp={false}
-        closeTimeoutMS={300}
         style={{
           content: {
             position: "absolute",
@@ -169,7 +183,7 @@ const AddExpense = () => {
               required
               name="title"
               onBlur={(e) => {
-                if (e.target.value.length > 30) {
+                if (e.target.value.trim().length > 30) {
                   enqueueSnackbar(
                     "The title can only have a maximum of 30 characters.",
                     {
