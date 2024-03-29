@@ -15,7 +15,7 @@ const AddIncome = () => {
   useEffect(() => {
     window.addEventListener("resize", () => {
       if (window.innerWidth <= 310) {
-        setModalWidth("95vw");
+        setModalWidth("92vw");
         setModalHeight("318px");
       }
       else if (window.innerWidth <= 400) {
@@ -52,7 +52,8 @@ const AddIncome = () => {
   return (
     <>
       <ReactModal
-        closeTimeoutMS={500}
+      ariaHideApp={false}
+        closeTimeoutMS={300}
         style={{
           content: {
             position: "absolute",
@@ -67,7 +68,7 @@ const AddIncome = () => {
             borderRadius: "15px",
             outline: "none",
             padding: "0",
-            maxHeight: "91vh",
+            maxHeight: "90vh",
             overflow: "auto"
           },
         }}

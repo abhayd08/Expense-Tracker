@@ -15,7 +15,7 @@ body {
 }
 
 #root {
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 * {
@@ -31,7 +31,7 @@ select {
 
 .ReactModal__Overlay {
   opacity: 0;
-  transition: opacity 500ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
 }
 
 .ReactModal__Overlay--after-open {
@@ -44,11 +44,11 @@ select {
 
 @media (max-width: 450px) {
   #root {
-    padding: 12px;
+    padding: 0.75rem;
   }
 }
 
-@media (max-width: 310px) {
+@media (max-width: 300px) {
   body {
     display: flex;
   }

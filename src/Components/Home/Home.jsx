@@ -14,6 +14,8 @@ const Home = () => {
   const [entertainmentExpenses, setEntertainmentExpenses] = useState(0);
   const [foodExpenses, setFoodExpenses] = useState(0);
   const [travelExpenses, setTravelExpenses] = useState(0);
+  const [expenseHeadingToBeDisplayed, setExpenseHeadingToBeDisplayed] =
+    useState("Add Expenses");
   const [data, setData] = useState(
     [
       entertainmentExpenses > 0
@@ -49,6 +51,8 @@ const Home = () => {
           setTravelExpenses,
           data,
           setData,
+          expenseHeadingToBeDisplayed,
+          setExpenseHeadingToBeDisplayed,
         }}
       >
         <Dashboard />

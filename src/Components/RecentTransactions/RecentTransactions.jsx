@@ -8,6 +8,7 @@ import { FaGift } from "react-icons/fa6";
 import { FaSuitcaseRolling } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { enqueueSnackbar } from "notistack";
 
 const RecentTransactions = () => {
   const {
@@ -18,6 +19,8 @@ const RecentTransactions = () => {
     transactionToBeEditted,
     setTransactionToBeEditted,
     setIsAddExpenseModalOpen,
+    expenseHeadingToBeDisplayed,
+    setExpenseHeadingToBeDisplayed,
   } = useContext(ExpenseTrackerContext);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -125,6 +128,9 @@ const RecentTransactions = () => {
                         setExpenses(
                           (prevExpenses) => prevExpenses - expense.price
                         );
+                        enqueueSnackbar("Transaction deleted.", {
+                          variant: "error",
+                        });
                       }}
                     >
                       <MdDelete
@@ -142,6 +148,7 @@ const RecentTransactions = () => {
                     <button
                       onClick={() => {
                         setTransactionToBeEditted(expense.id);
+                        setExpenseHeadingToBeDisplayed("Edit Expenses");
                         setIsAddExpenseModalOpen(true);
                       }}
                       className={styles.btns}

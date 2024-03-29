@@ -17,6 +17,8 @@ const AddExpense = () => {
     setWalletBalance,
     transactionToBeEditted,
     setTransactionToBeEditted,
+    expenseHeadingToBeDisplayed,
+    setExpenseHeadingToBeDisplayed,
   } = useContext(ExpenseTrackerContext);
 
   const [modalWidth, setModalWidth] = useState("530px");
@@ -25,9 +27,9 @@ const AddExpense = () => {
   useEffect(() => {
     window.addEventListener("resize", () => {
       if (window.innerWidth <= 310) {
-        setModalWidth("95vw");
+        setModalWidth("92vw");
       } else if (window.innerWidth <= 500) {
-        setModalWidth("300px");
+        setModalWidth("290px");
         setModalHeight("561px");
       } else if (window.innerWidth <= 610) {
         setModalWidth("428px");
@@ -38,10 +40,10 @@ const AddExpense = () => {
       }
     });
   });
-  console.log(expensesSummary);
 
   const handleExpenseAdd = (e) => {
     e.preventDefault();
+    const timeouts = [];
     if (Number(e.target.elements.price.value) > 0) {
       if (transactionToBeEditted === null) {
         const expensesData = {
@@ -61,8 +63,13 @@ const AddExpense = () => {
           setExpensesSummary((prevSummary) => {
             return [...prevSummary, expensesData];
           });
-          setIsAddExpenseModalOpen(false);
           setTransactionToBeEditted(null);
+          setIsAddExpenseModalOpen(false);
+          timeouts.push(
+            setTimeout(() => {
+              setExpenseHeadingToBeDisplayed("Add Expenses");
+            }, 300)
+          );
           enqueueSnackbar("Expense added.", {
             variant: "success",
           });
@@ -109,6 +116,11 @@ const AddExpense = () => {
         });
         setTransactionToBeEditted(null);
         setIsAddExpenseModalOpen(false);
+        timeouts.push(
+          setTimeout(() => {
+            setExpenseHeadingToBeDisplayed("Add Expenses");
+          }, 300)
+        );
       }
     } else {
       enqueueSnackbar("Expenses cannot be negative.", {
@@ -116,12 +128,19 @@ const AddExpense = () => {
       });
       e.target.elements.price.value = null;
     }
+
+    return () => {
+      timeouts.forEach((timeout) => {
+        clearTimeout(timeout);
+      });
+    };
   };
 
   return (
     <>
       <ReactModal
-        closeTimeoutMS={500}
+        ariaHideApp={false}
+        closeTimeoutMS={300}
         style={{
           content: {
             position: "absolute",
@@ -136,7 +155,7 @@ const AddExpense = () => {
             borderRadius: "15px",
             outline: "none",
             padding: "0",
-            maxHeight: "91vh",
+            maxHeight: "90vh",
             overflow: "auto",
           },
         }}
@@ -144,7 +163,7 @@ const AddExpense = () => {
         contentLabel="Add Expense"
       >
         <div className={styles.container}>
-          <h3 className={styles.heading}>Add Expenses</h3>
+          <h3 className={styles.heading}>{expenseHeadingToBeDisplayed}</h3>
           <form onSubmit={handleExpenseAdd} className={styles.form}>
             <input
               required
@@ -170,8 +189,13 @@ const AddExpense = () => {
               placeholder="Price"
               className={styles.inputs}
             />
-            <select name="category" required className={styles.inputs}>
-              <option value="select-category" selected disabled>
+            <select
+              name="category"
+              defaultValue="select-category"
+              required
+              className={styles.inputs}
+            >
+              <option value="select-category" disabled>
                 Select Category
               </option>
               <option value="Food">Food</option>
@@ -187,6 +211,11 @@ const AddExpense = () => {
                 onClick={() => {
                   setTransactionToBeEditted(null);
                   setIsAddExpenseModalOpen(false);
+                  const timeout = setTimeout(() => {
+                    setExpenseHeadingToBeDisplayed("Add Expenses");
+                  }, 300);
+
+                  return () => clearTimeout(timeout);
                 }}
                 className={styles.cancelBtn}
                 type="button"

@@ -1,10 +1,10 @@
 .container {
-  width: 417px;
-  height: 400px;
+  width: 26.0625rem;
+  height: 25rem;
   border-radius: 15px;
   opacity: 0px;
   background: #ffffff;
-  box-shadow: 0px 4px 4px 0px #00000040;
+  box-shadow: 0px 0.25rem 0.25rem 0px #00000040;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,9 +99,9 @@
   }
 }
 
-@media (max-width: 310px) {
+@media (max-width: 300px) {
   .container {
-    width: 335px;
+    width: 20.9375rem;
   }
 
   .container2 {
@@ -109,6 +109,6 @@
   }
 
   .label {
-    font-size: 0.9rem !important;
+    font-size: 1rem !important;
   }
 }

@@ -5,7 +5,7 @@
   opacity: 0px;
   background: #ffffff;
   box-shadow: 0px 4px 4px 0px #00000040;
-  padding: 0 27px 10px 27px;
+  padding: 0 1.6875rem 0.625rem 1.6875rem;
   position: relative;
 }
 
@@ -13,6 +13,8 @@
   font-size: 1rem;
   margin-top: 1.35rem;
   margin-left: -0.5rem;
+  transition: 0.25s ease-in-out;
+  animation: opacity 1s ease-in-out;
 }
 
 .expenseContainer {
@@ -20,24 +22,26 @@
   gap: 10rem;
   justify-content: space-between;
   align-items: center;
-  padding: 35px 0 0 0;
+  padding: 2.1875rem 0 0 0;
+  transition: 0.25s ease-in-out;
+  animation: opacity 0.75s ease-in-out;
 }
 
 .section1 {
   display: flex;
-  gap: 17px;
+  gap: 1.0625rem;
   align-items: center;
 }
 
 .details {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .expenseName {
   font-family: Open Sans;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 21.79px;
   text-align: left;
@@ -47,7 +51,7 @@
 
 .date {
   font-family: Open Sans;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 21.79px;
   text-align: left;
@@ -58,12 +62,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 21px;
+  gap: 1.3125rem;
 }
 
 .expensePrice {
   font-family: Open Sans;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 21.79px;
   text-align: left;
@@ -93,7 +97,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 14px;
+  gap: 0.875rem;
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -110,9 +114,9 @@
   align-items: center;
   opacity: 0px;
   background: #43967b;
-  box-shadow: 0px 4px 4px 0px #00000040;
+  box-shadow: 0px 0.25rem 0.25rem 0px #00000040;
   font-family: Ubuntu;
-  font-size: 24px;
+  font-size: 1.5remm;
   font-weight: 400;
   line-height: 27.58px;
   text-align: center;
@@ -127,8 +131,8 @@
 
 @media (max-width: 800px) {
   .container {
-    height: 660px;
-    width: 400px;
+    height: 41.25rem;
+    width: 25rem;
   }
 
   .expenseContainer {
@@ -150,12 +154,21 @@
 @media (max-width: 508px) {
   .container {
     width: 78.5vw;
-    height: 700px;
+    height: 43.75rem;
   }
 }
 
-@media (max-width: 310px) {
+@media (max-width: 300px) {
   .container {
-    width: 290px;
+    width: 18.125rem;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

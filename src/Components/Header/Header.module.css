@@ -4,11 +4,11 @@
   font-weight: 700;
   line-height: 2.299rem;
   text-align: left;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 @media (max-width: 400px) {
   .heading {
-    font-size: 28px;
+    font-size: 1.75rem;
   }
 }

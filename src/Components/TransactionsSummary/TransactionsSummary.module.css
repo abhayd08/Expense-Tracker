@@ -1,21 +1,26 @@
 .container {
-  margin-top: 36px;
+  margin-top: 2.25rem;
   display: flex;
   flex-wrap: wrap;
   gap: 29.75px;
-  padding-bottom: 20px;
+  padding-bottom: 1rem;
 }
 
 .recentTransactions,
 .topExpenses {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
+}
+
+.topExpenses {
+  transition: 0.2s ease-in-out;
+  animation: opacity 1s ease-in-out;
 }
 
 .heading {
   font-family: Ubuntu;
-  font-size: 28px;
+  font-size: 1.75rem;
   font-style: italic;
   font-weight: 700;
   line-height: 32.17px;
@@ -37,6 +42,15 @@
 
 @media (max-width: 400px) {
   .heading {
-    font-size: 24px;
+    font-size: 1.5rem;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
