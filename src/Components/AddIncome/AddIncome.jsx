@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
+import ExpenseTrackerContext from "../Contexts/ExpenseTrackerContext";
 import { useContext } from "react";
 import styles from "./AddIncome.module.css";
 import { useState, useEffect } from "react";
@@ -7,7 +7,7 @@ import { enqueueSnackbar } from "notistack";
 
 const AddIncome = () => {
   const { isAddIncomeModalOpen, setIsAddIncomeModalOpen, setWalletBalance } =
-    useContext(BalanceTrackerContext);
+    useContext(ExpenseTrackerContext);
 
   const [modalWidth, setModalWidth] = useState("565px");
   const [modalHeight, setModalHeight] = useState("190px");

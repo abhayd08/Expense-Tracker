@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
+import ExpenseTrackerContext from "../Contexts/ExpenseTrackerContext";
 import styles from "./RecentTransactions.module.css";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
@@ -18,7 +18,7 @@ const RecentTransactions = () => {
     transactionToBeEditted,
     setTransactionToBeEditted,
     setIsAddExpenseModalOpen,
-  } = useContext(BalanceTrackerContext);
+  } = useContext(ExpenseTrackerContext);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [startingIndex, setStartingIndex] = useState(0);
@@ -57,9 +57,9 @@ const RecentTransactions = () => {
   return (
     <div className={styles.container}>
       {currentItems.length < 1 ? (
-        <h6 className={styles.altText}>
+        <div className={styles.altText}>
           You have not done any transactions yet.
-        </h6>
+        </div>
       ) : (
         currentItems.map((expense) => {
           return (
@@ -167,35 +167,55 @@ const RecentTransactions = () => {
         })
       )}
       <div className={styles.paginationControls}>
-        <FaArrowAltCircleLeft
-          onClick={() => {
-            if (currentPage > 1) {
-              setCurrentPage((prevPage) => prevPage - 1);
-              setStartingIndex((prevIndex) => prevIndex - 3);
-              setEndingIndex((prevIndex) => prevIndex - 3);
-            }
-          }}
-          style={{
-            width: "37px",
-            height: "37px",
-            cursor: "pointer",
-          }}
-        />
+        {currentPage !== 1 ? (
+          <FaArrowAltCircleLeft
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage((prevPage) => prevPage - 1);
+                setStartingIndex((prevIndex) => prevIndex - 3);
+                setEndingIndex((prevIndex) => prevIndex - 3);
+              }
+            }}
+            style={{
+              width: "37px",
+              height: "37px",
+              cursor: "pointer",
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: "37px",
+              height: "37px",
+              visibility: "hidden",
+            }}
+          ></div>
+        )}
         <div className={styles.pageNumber}>{currentPage}</div>
-        <FaArrowAltCircleRight
-          onClick={() => {
-            if (currentPage <= maxPagesAllowed) {
-              setCurrentPage((prevPage) => prevPage + 1);
-              setStartingIndex((prevIndex) => prevIndex + 3);
-              setEndingIndex((prevIndex) => prevIndex + 3);
-            }
-          }}
-          style={{
-            width: "37px",
-            height: "37px",
-            cursor: "pointer",
-          }}
-        />
+        {maxPagesAllowed >= currentPage ? (
+          <FaArrowAltCircleRight
+            onClick={() => {
+              if (currentPage <= maxPagesAllowed) {
+                setCurrentPage((prevPage) => prevPage + 1);
+                setStartingIndex((prevIndex) => prevIndex + 3);
+                setEndingIndex((prevIndex) => prevIndex + 3);
+              }
+            }}
+            style={{
+              width: "37px",
+              height: "37px",
+              cursor: "pointer",
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: "37px",
+              height: "37px",
+              visibility: "hidden",
+            }}
+          ></div>
+        )}
       </div>
     </div>
   );

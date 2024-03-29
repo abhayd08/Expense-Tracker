@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
+import ExpenseTrackerContext from "../Contexts/ExpenseTrackerContext";
 import { useContext } from "react";
 import styles from "./AddExpense.module.css";
 import { useState } from "react";
@@ -17,7 +17,7 @@ const AddExpense = () => {
     setWalletBalance,
     transactionToBeEditted,
     setTransactionToBeEditted,
-  } = useContext(BalanceTrackerContext);
+  } = useContext(ExpenseTrackerContext);
 
   const [modalWidth, setModalWidth] = useState("530px");
   const [modalHeight, setModalHeight] = useState("341px");
@@ -119,6 +119,7 @@ const AddExpense = () => {
   return (
     <>
       <ReactModal
+        closeTimeoutMS={500}
         style={{
           content: {
             position: "absolute",
@@ -144,6 +145,17 @@ const AddExpense = () => {
             <input
               required
               name="title"
+              onBlur={(e) => {
+                if (e.target.value.length > 40) {
+                  enqueueSnackbar(
+                    "The title can only have a maximum of 40 characters.",
+                    {
+                      variant: "warning",
+                    }
+                  );
+                  e.target.value = "";
+                }
+              }}
               placeholder="Title"
               className={styles.inputs}
             />

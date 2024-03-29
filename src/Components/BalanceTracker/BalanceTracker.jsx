@@ -4,7 +4,7 @@ import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
 import AddExpense from "../AddExpense/AddExpense";
 import AddIncome from "../AddIncome/AddIncome";
-import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
+import ExpenseTrackerContext from "../Contexts/ExpenseTrackerContext";
 
 const BalanceTracker = () => {
   const {
@@ -26,7 +26,9 @@ const BalanceTracker = () => {
     setFoodExpenses,
     travelExpenses,
     setTravelExpenses,
-  } = useContext(BalanceTrackerContext);
+    data,
+    setData,
+  } = useContext(ExpenseTrackerContext);
 
   useEffect(() => {
     if (localStorage.getItem("walletBalance")) {
@@ -98,16 +100,6 @@ const BalanceTracker = () => {
     setTravelExpenses(travel);
   }, [expenses, walletBalance, expensesSummary]);
 
-  const [data, setData] = useState(
-    [
-      entertainmentExpenses > 0
-        ? { name: "Entertainment", value: entertainmentExpenses }
-        : null,
-      foodExpenses > 0 ? { name: "Food", value: foodExpenses } : null,
-      travelExpenses > 0 ? { name: "Travel", value: travelExpenses } : null,
-    ].filter((entry) => entry !== null)
-  );
-
   useEffect(() => {
     setData(
       [
@@ -152,17 +144,32 @@ const BalanceTracker = () => {
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-    return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline="central"
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
+    if (data.length > 0) {
+      return (
+        <text
+          x={x}
+          y={y}
+          fill="white"
+          textAnchor={x > cx ? "start" : "end"}
+          dominantBaseline="central"
+        >
+          {`${Number.isInteger(percent * 100) ? (percent * 100).toFixed(1) : (percent * 100).toFixed(0)}%`}
+
+        </text>
+      );
+    } else {
+      return (
+        <text
+          x={x}
+          y={y}
+          fill="black"
+          textAnchor={x > cx ? "start" : "end"}
+          dominantBaseline="central"
+        >
+          0%
+        </text>
+      );
+    }
   };
 
   return (
@@ -202,7 +209,7 @@ const BalanceTracker = () => {
       <div className={styles.balanceChart}>
         <PieChart width={200} height={200}>
           <Pie
-            data={data}
+            data={data.length > 0 ? data : [{ name: "Empty", value: 1 }]}
             cx="50%"
             cy="50%"
             labelLine={false}
@@ -213,20 +220,24 @@ const BalanceTracker = () => {
             dataKey="value"
             activeShape={null}
           >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={
-                  COLORS[
-                    entry.name === "Entertainment"
-                      ? 0
-                      : entry.name === "Food"
-                      ? 1
-                      : 2
-                  ]
-                }
-              />
-            ))}
+            {data.length > 0 ? (
+              data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={
+                    COLORS[
+                      entry.name === "Entertainment"
+                        ? 0
+                        : entry.name === "Food"
+                        ? 1
+                        : 2
+                    ]
+                  }
+                />
+              ))
+            ) : (
+              <Cell fill="lightgray" />
+            )}
           </Pie>
         </PieChart>
         <div className={styles.indicatorsContainer}>

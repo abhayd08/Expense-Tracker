@@ -1,6 +1,6 @@
 .container {
   width: 738.33px;
-  height: 350px;
+  height: 365px;
   border-radius: 15px;
   opacity: 0px;
   background: #ffffff;
@@ -12,7 +12,7 @@
 .altText {
   font-size: 1rem;
   margin-top: 1.35rem;
-  margin-left: -.5rem;
+  margin-left: -0.5rem;
 }
 
 .expenseContainer {
@@ -32,7 +32,7 @@
 .details {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 4px;
 }
 
 .expenseName {
@@ -94,14 +94,15 @@
   align-items: center;
   gap: 14px;
   position: absolute;
-  bottom: 0;
+  bottom: -10px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .pageNumber {
-  width: 37px;
-  height: 37px;
+  padding: 0.5rem;
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -115,4 +116,93 @@
   line-height: 27.58px;
   text-align: center;
   color: #ffffff;
+}
+
+@media (max-width: 850px) {
+  .container {
+    width: 700px;
+  }
+}
+
+@media (max-width: 815px) {
+  .container {
+    width: 650px;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    height: 660px;
+    width: 400px;
+  }
+
+  .expenseContainer {
+    gap: 2.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .expensePrice {
+    margin-left: 0.25rem;
+  }
+
+  .section2 {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+@media (max-width: 508px) {
+  .container {
+    width: 375px;
+  }
+}
+
+@media (max-width: 478px) {
+  .container {
+    width: 350px;
+  }
+}
+
+@media (max-width: 452px) {
+  .container {
+    width: 325px;
+    padding-bottom: 125px;
+  }
+}
+
+@media (max-width: 408px) {
+  .container {
+    width: 315px;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    width: 300px;
+  }
+}
+
+@media (max-width: 388px) {
+  .container {
+    width: 280px;
+  }
+}
+
+@media (max-width: 368px) {
+  .container {
+    width: 260px;
+  }
+}
+
+@media (max-width: 348px) {
+  .container {
+    width: 240px;
+  }
+}
+
+@media (max-width: 328px) {
+  .container {
+    width: 220px;
+  }
 }

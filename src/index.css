@@ -44,3 +44,9 @@ select {
     padding: 12px;
   }
 }
+
+@media (max-width: 310px) {
+  body {
+    display: flex;
+  }
+}

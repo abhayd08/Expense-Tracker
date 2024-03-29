@@ -2,7 +2,7 @@ import Header from "../Header/Header";
 import { useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
 import TransactionsSummary from "../TransactionsSummary/TransactionsSummary";
-import BalanceTrackerContext from "../Contexts/BalanceTrackerContext";
+import ExpenseTrackerContext from "../Contexts/ExpenseTrackerContext";
 
 const Home = () => {
   const [expensesSummary, setExpensesSummary] = useState([]);
@@ -14,11 +14,20 @@ const Home = () => {
   const [entertainmentExpenses, setEntertainmentExpenses] = useState(0);
   const [foodExpenses, setFoodExpenses] = useState(0);
   const [travelExpenses, setTravelExpenses] = useState(0);
+  const [data, setData] = useState(
+    [
+      entertainmentExpenses > 0
+        ? { name: "Entertainment", value: entertainmentExpenses }
+        : null,
+      foodExpenses > 0 ? { name: "Food", value: foodExpenses } : null,
+      travelExpenses > 0 ? { name: "Travel", value: travelExpenses } : null,
+    ].filter((entry) => entry !== null)
+  );
 
   return (
     <>
       <Header />
-      <BalanceTrackerContext.Provider
+      <ExpenseTrackerContext.Provider
         value={{
           expensesSummary,
           setExpensesSummary,
@@ -38,11 +47,13 @@ const Home = () => {
           setFoodExpenses,
           travelExpenses,
           setTravelExpenses,
+          data,
+          setData,
         }}
       >
         <Dashboard />
         <TransactionsSummary />
-      </BalanceTrackerContext.Provider>
+      </ExpenseTrackerContext.Provider>
     </>
   );
 };
