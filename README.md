@@ -7,14 +7,14 @@ A web application for tracking expenses, allowing users to add, edit, and delete
 
 ## Features
 
-- The application includes a Wallet Balance feature, initially set to $5000..
+- The application includes a Wallet Balance feature, initially set to Rs.5000..
 - Users can increase their Wallet Balance as needed..
 - Users can add new expenses, providing details such as title, amount, category, and date.
 - The application ensures that users cannot spend more than their available Wallet Balance, displaying an alert if they attempt to do so.
 - Users can edit existing expenses to update details as required.
 - Expenses can be deleted if no longer needed.
-- The application provides a summary of total expenses, categorized by date or type.
-- Users can easily view their spending patterns and track expenses over time.
+- The application provides a summary of total expenses, categorized by date.
+- Users can easily view their spending patterns and track expenses.
 - Wallet balance and the list of expenses are stored in the browser's localStorage.
 - Data remains accessible even after refreshing the page, providing a seamless user experience.
 - The application features a responsive design that adapts to various screen sizes.
