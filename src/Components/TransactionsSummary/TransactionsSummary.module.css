@@ -3,10 +3,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 29.75px;
-  padding-bottom: 12px;
+  padding-bottom: 20px;
 }
 
-.recentTransactions, .topExpenses {
+.recentTransactions,
+.topExpenses {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -20,4 +21,22 @@
   line-height: 32.17px;
   text-align: left;
   color: #ffffff;
+}
+
+@media (min-width: 801px) and (max-width: 900px) {
+  .container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 550px) {
+  .container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .heading {
+    font-size: 24px;
+  }
 }

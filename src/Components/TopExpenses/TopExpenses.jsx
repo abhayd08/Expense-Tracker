@@ -25,14 +25,16 @@ const TopExpenses = () => {
   };
   return (
     <div className={styles.container}>
-      <ResponsiveContainer width="85%" height="115%">
-        <BarChart style={{ transform: "rotate(90deg)" }} data={data}>
-          <XAxis dataKey="name" style={{ fontWeight: "bold" }} />
+      <ResponsiveContainer className={styles.container2}>
+        <BarChart
+          style={{ transform: "rotate(90deg)" }}
+          data={data}
+        >
+          <XAxis dataKey="name" className={styles.label} />
           <Bar
             dataKey="value"
             fill="#8884d8"
             shape={<TriangleBar />}
-            label={{ position: "top" }}
           >
             {data.map((entry, index) => (
               <Cell

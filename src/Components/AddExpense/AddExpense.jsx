@@ -24,7 +24,9 @@ const AddExpense = () => {
 
   useEffect(() => {
     window.addEventListener("resize", () => {
-      if (window.innerWidth <= 500) {
+      if (window.innerWidth <= 310) {
+        setModalWidth("95vw");
+      } else if (window.innerWidth <= 500) {
         setModalWidth("300px");
         setModalHeight("561px");
       } else if (window.innerWidth <= 610) {
@@ -134,6 +136,8 @@ const AddExpense = () => {
             borderRadius: "15px",
             outline: "none",
             padding: "0",
+            maxHeight: "91vh",
+            overflow: "auto",
           },
         }}
         isOpen={isAddExpenseModalOpen}
@@ -146,9 +150,9 @@ const AddExpense = () => {
               required
               name="title"
               onBlur={(e) => {
-                if (e.target.value.length > 40) {
+                if (e.target.value.length > 30) {
                   enqueueSnackbar(
-                    "The title can only have a maximum of 40 characters.",
+                    "The title can only have a maximum of 30 characters.",
                     {
                       variant: "warning",
                     }

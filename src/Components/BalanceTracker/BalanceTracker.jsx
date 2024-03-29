@@ -153,8 +153,11 @@ const BalanceTracker = () => {
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
         >
-          {`${Number.isInteger(percent * 100) ? (percent * 100).toFixed(1) : (percent * 100).toFixed(0)}%`}
-
+          {`${
+            percent % 1 !== 0
+              ? (percent * 100).toFixed(1)
+              : (percent * 100).toFixed(0)
+          }%`}
         </text>
       );
     } else {

@@ -14,9 +14,13 @@ const AddIncome = () => {
 
   useEffect(() => {
     window.addEventListener("resize", () => {
-      if (window.innerWidth <= 400) {
-        setModalWidth("330px");
-        setModalHeight("561px");
+      if (window.innerWidth <= 310) {
+        setModalWidth("95vw");
+        setModalHeight("318px");
+      }
+      else if (window.innerWidth <= 400) {
+        setModalWidth("290px");
+        setModalHeight("318px");
       } else if (window.innerWidth <= 640) {
         setModalWidth("340px");
         setModalHeight("260px");
@@ -63,6 +67,8 @@ const AddIncome = () => {
             borderRadius: "15px",
             outline: "none",
             padding: "0",
+            maxHeight: "91vh",
+            overflow: "auto"
           },
         }}
         isOpen={isAddIncomeModalOpen}

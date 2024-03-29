@@ -6,3 +6,9 @@
   text-align: left;
   color: #FFFFFF;
 }
+
+@media (max-width: 400px) {
+  .heading {
+    font-size: 28px;
+  }
+}

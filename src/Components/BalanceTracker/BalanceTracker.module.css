@@ -162,8 +162,19 @@
     width: 100%;
     height: 181px;
   }
+  .heading,
+  .expenses,
+  .balance {
+    font-size: 28px;
+  }
   .expensesContainer {
     width: 100%;
     height: 181px;
+  }
+}
+
+@media (max-width: 340px) {
+  .indicatorName {
+    font-size: 10px;
   }
 }

@@ -12,6 +12,9 @@ body {
   box-sizing: border-box;
   background-color: var(--background);
   font-family: Ubuntu;
+}
+
+#root {
   padding: 20px;
 }
 
@@ -40,7 +43,7 @@ select {
 }
 
 @media (max-width: 450px) {
-  body {
+  #root {
     padding: 12px;
   }
 }

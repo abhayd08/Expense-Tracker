@@ -1,6 +1,6 @@
 .container {
   width: 738.33px;
-  height: 365px;
+  height: 390px;
   border-radius: 15px;
   opacity: 0px;
   background: #ffffff;
@@ -42,6 +42,7 @@
   line-height: 21.79px;
   text-align: left;
   color: #000000;
+  word-break: break-all;
 }
 
 .date {
@@ -120,13 +121,7 @@
 
 @media (max-width: 850px) {
   .container {
-    width: 700px;
-  }
-}
-
-@media (max-width: 815px) {
-  .container {
-    width: 650px;
+    width: 87.5vw;
   }
 }
 
@@ -154,55 +149,13 @@
 
 @media (max-width: 508px) {
   .container {
-    width: 375px;
+    width: 78.5vw;
+    height: 700px;
   }
 }
 
-@media (max-width: 478px) {
+@media (max-width: 310px) {
   .container {
-    width: 350px;
-  }
-}
-
-@media (max-width: 452px) {
-  .container {
-    width: 325px;
-    padding-bottom: 125px;
-  }
-}
-
-@media (max-width: 408px) {
-  .container {
-    width: 315px;
-  }
-}
-
-@media (max-width: 400px) {
-  .container {
-    width: 300px;
-  }
-}
-
-@media (max-width: 388px) {
-  .container {
-    width: 280px;
-  }
-}
-
-@media (max-width: 368px) {
-  .container {
-    width: 260px;
-  }
-}
-
-@media (max-width: 348px) {
-  .container {
-    width: 240px;
-  }
-}
-
-@media (max-width: 328px) {
-  .container {
-    width: 220px;
+    width: 290px;
   }
 }
